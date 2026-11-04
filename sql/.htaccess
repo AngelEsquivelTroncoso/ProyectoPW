@@ -1,0 +1,8 @@
+# Scripts de base de datos: contienen datos y estructura, no se publican.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

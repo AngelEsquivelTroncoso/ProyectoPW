@@ -1,0 +1,27 @@
+# Configuración de Apache para el proyecto.
+# Requiere AllowOverride All (valor por defecto en XAMPP/LAMPP).
+
+# Sin listados de directorio.
+Options -Indexes
+
+# Prioriza el front controller PHP.
+DirectoryIndex index.php index.html
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header unset X-Powered-By
+</IfModule>
+
+# No servir archivos de trabajo, respaldos ni scripts de base de datos.
+<FilesMatch "\.(sql|md|log|bak|zip|ini)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
