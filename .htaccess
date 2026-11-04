@@ -15,6 +15,10 @@ DirectoryIndex index.php index.html
     Header unset X-Powered-By
 </IfModule>
 
+# No exponer el directorio de control de versiones (.git, .git/config, etc.).
+# Sin esta regla Apache sirve el repositorio completo por HTTP.
+RedirectMatch 404 /\.git(/|$)
+
 # No servir archivos de trabajo, respaldos ni scripts de base de datos.
 <FilesMatch "\.(sql|md|log|bak|zip|ini)$">
     <IfModule mod_authz_core.c>
