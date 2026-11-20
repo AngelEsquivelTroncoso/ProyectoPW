@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $titulo        = 'Iniciar sesión | Congreso Internacional de Ingeniería en Sistemas e IoT';
 $descripcion   = 'Inicia sesión para continuar con tu inscripción al congreso.';
 $pagina_activa = 'login';
+$scripts_pie   = '<script src="js/validacion.js" defer></script>';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="contenedor seccion-acceso">
@@ -63,12 +64,12 @@ require __DIR__ . '/includes/header.php';
 
     <div class="campo">
       <label for="correo" class="campo-obligatorio">Correo electrónico</label>
-      <input type="email" id="correo" name="correo" value="<?= e($correo) ?>" autocomplete="email" maxlength="150" required />
+      <input type="email" id="correo" name="correo" value="<?= e($correo) ?>" autocomplete="email" maxlength="150" data-validar="correo" required />
     </div>
 
     <div class="campo">
       <label for="password" class="campo-obligatorio">Contraseña</label>
-      <input type="password" id="password" name="password" autocomplete="current-password" required />
+      <input type="password" id="password" name="password" autocomplete="current-password" data-validar="clave-acceso" required />
     </div>
 
     <button class="btn btn-principal" type="submit">Entrar</button>

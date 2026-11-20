@@ -91,6 +91,7 @@ $titulo        = 'Productos | Administración SysIoT 2026';
 $descripcion   = 'Alta, edición y baja de productos del congreso.';
 $pagina_activa = 'admin';
 $pagina_id     = 'pagina-admin-productos';
+$scripts_pie   = '<script src="../js/validacion.js" defer></script>';
 
 include __DIR__ . '/../includes/header.php';
 
@@ -174,13 +175,14 @@ include __DIR__ . '/_navegacion.php';
         name="nombre"
         maxlength="150"
         value="<?= e($editando['nombre'] ?? '') ?>"
+        data-validar="nombre"
         required
       />
     </div>
 
     <div class="campo">
       <label for="descripcion">Descripción</label>
-      <textarea id="descripcion" name="descripcion" maxlength="2000" rows="4"><?= e($editando['descripcion'] ?? '') ?></textarea>
+      <textarea id="descripcion" name="descripcion" maxlength="2000" rows="4" data-validar="descripcion"><?= e($editando['descripcion'] ?? '') ?></textarea>
     </div>
 
     <div class="admin-form-fila">
@@ -193,6 +195,7 @@ include __DIR__ . '/_navegacion.php';
           min="0.01"
           step="0.01"
           value="<?= e((string) ($editando['precio'] ?? '')) ?>"
+          data-validar="precio"
           required
         />
       </div>
@@ -206,6 +209,7 @@ include __DIR__ . '/_navegacion.php';
           min="0"
           step="1"
           value="<?= e((string) ($editando['stock'] ?? 0)) ?>"
+          data-validar="stock"
           required
         />
       </div>

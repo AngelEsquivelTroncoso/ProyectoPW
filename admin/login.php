@@ -47,6 +47,7 @@ $titulo        = 'Acceso administrador | Congreso SysIoT 2026';
 $descripcion   = 'Acceso al panel de administración del congreso.';
 $pagina_activa = 'admin';
 $pagina_id     = 'pagina-admin-login';
+$scripts_pie   = '<script src="../js/validacion.js" defer></script>';
 
 include __DIR__ . '/../includes/header.php';
 ?>
@@ -74,6 +75,7 @@ include __DIR__ . '/../includes/header.php';
           name="correo"
           value="<?= e($correo) ?>"
           autocomplete="username"
+          data-validar="correo"
           required
         />
       </div>
@@ -85,6 +87,7 @@ include __DIR__ . '/../includes/header.php';
           id="password"
           name="password"
           autocomplete="current-password"
+          data-validar="clave-acceso"
           required
         />
       </div>

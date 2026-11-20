@@ -87,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $titulo        = 'Crear cuenta | Congreso Internacional de Ingeniería en Sistemas e IoT';
 $descripcion   = 'Crea tu cuenta para inscribirte al congreso y administrar tus pagos.';
 $pagina_activa = 'registro';
+$scripts_pie   = '<script src="js/validacion.js" defer></script>';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="contenedor seccion-acceso">
@@ -108,23 +109,23 @@ require __DIR__ . '/includes/header.php';
 
     <div class="campo">
       <label for="nombre" class="campo-obligatorio">Nombre completo</label>
-      <input type="text" id="nombre" name="nombre" value="<?= e($nombre) ?>" autocomplete="name" maxlength="100" required />
+      <input type="text" id="nombre" name="nombre" value="<?= e($nombre) ?>" autocomplete="name" maxlength="100" data-validar="nombre" required />
     </div>
 
     <div class="campo">
       <label for="correo" class="campo-obligatorio">Correo electrónico</label>
-      <input type="email" id="correo" name="correo" value="<?= e($correo) ?>" autocomplete="email" maxlength="150" required />
+      <input type="email" id="correo" name="correo" value="<?= e($correo) ?>" autocomplete="email" maxlength="150" data-validar="correo" required />
     </div>
 
     <div class="campo">
       <label for="password" class="campo-obligatorio">Contraseña</label>
-      <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" required />
+      <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" data-validar="password" required />
       <span class="ayuda">Mínimo 8 caracteres.</span>
     </div>
 
     <div class="campo">
       <label for="confirmar" class="campo-obligatorio">Confirmar contraseña</label>
-      <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" minlength="8" required />
+      <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" minlength="8" data-validar="confirmar" required />
     </div>
 
     <button class="btn btn-principal" type="submit">Crear cuenta</button>

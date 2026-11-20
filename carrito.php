@@ -41,6 +41,7 @@ $titulo        = 'Carrito | Congreso Internacional de Ingeniería en Sistemas e 
 $descripcion   = 'Revisa las inscripciones y talleres que has agregado al carrito.';
 $pagina_activa = 'carrito';
 $pagina_id     = 'pagina-carrito';
+$scripts_pie   = '<script src="js/validacion.js" defer></script>';
 
 include __DIR__ . '/includes/header.php';
 ?>
@@ -81,7 +82,7 @@ include __DIR__ . '/includes/header.php';
                       </td>
                       <td data-etiqueta="Precio"><?= e(precio($producto['precio'])) ?></td>
                       <td data-etiqueta="Cantidad">
-                        <form method="post" action="carrito.php" class="form-cantidad">
+                        <form method="post" action="carrito.php" class="form-cantidad" novalidate>
                           <?= csrf_campo() ?>
                           <input type="hidden" name="accion" value="actualizar">
                           <input type="hidden" name="producto_id" value="<?= (int) $producto['id'] ?>">
@@ -97,6 +98,7 @@ include __DIR__ . '/includes/header.php';
                             min="0"
                             max="<?= (int) $producto['stock'] ?>"
                             inputmode="numeric"
+                            data-validar="cantidad"
                           >
                           <button class="btn btn-contorno btn-pequeno" type="submit">Actualizar</button>
                         </form>
