@@ -81,8 +81,10 @@ http://localhost/ProyectoPW/
 
 | Rol | Correo | Contraseña | Acceso |
 |---|---|---|---|
-| Administrador | `admin@congreso.test` | `admin123` | `http://localhost/ProyectoPW/admin/login.php` |
+| Administrador | `<tu-correo-de-admin>` | la que asignaste al crear la cuenta | `http://localhost/ProyectoPW/admin/login.php` |
 | Cliente | `cliente@congreso.test` | `cliente123` | `http://localhost/ProyectoPW/login-cliente.php` |
+
+> La cuenta de administrador no viene con el proyecto: se crea con `sql/admin-inicial.sql`, sustituyendo `admin@tu-dominio.mx` por un correo propio y generando el hash con `password_hash()`. Usa el correo que hayas registrado en tu base.
 
 También puedes crear un cliente nuevo desde `registro.php`.
 
