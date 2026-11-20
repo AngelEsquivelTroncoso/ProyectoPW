@@ -2106,3 +2106,30 @@ select[aria-invalid="true"]:focus {
   }
 }
 
+/* ==========================================================================
+   21. GRÁFICO DEL PANEL (Chart.js)
+   ========================================================================== */
+.admin-grafico {
+  position: relative;
+  height: 340px;
+  margin-top: var(--espacio-2);
+  padding: var(--espacio-2);
+  background: var(--vidrio-fondo);
+  -webkit-backdrop-filter: var(--vidrio-blur);
+  backdrop-filter: var(--vidrio-blur);
+  border: 1px solid var(--vidrio-borde);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-tarjeta);
+}
+
+.admin-grafico canvas {
+  display: block;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .admin-grafico {
+    height: 380px;
+    padding: var(--espacio-1);
+  }
+}

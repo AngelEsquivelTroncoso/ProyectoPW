@@ -40,11 +40,32 @@ $bajo_stock = $pdo->query(
      LIMIT 6'
 )->fetchAll();
 
+/*
+ * Datos del gráfico de cupos.
+ *
+ * Se envían como JSON en un <script type="application/json"> para que el JS
+ * los lea sin mezclar PHP dentro de JavaScript.
+ */
+$cupos = $pdo->query(
+    'SELECT nombre, stock
+     FROM productos
+     WHERE activo = 1
+     ORDER BY stock ASC, nombre ASC'
+)->fetchAll();
+
+$datos_grafico = [
+    'etiquetas' => array_map(static fn (array $fila): string => (string) $fila['nombre'], $cupos),
+    'valores'   => array_map(static fn (array $fila): int => (int) $fila['stock'], $cupos),
+];
+
 $raiz          = '../';
 $titulo        = 'Resumen | Administración SysIoT 2026';
 $descripcion   = 'Resumen de ventas, pedidos e inventario del congreso.';
 $pagina_activa = 'admin';
 $pagina_id     = 'pagina-admin-dashboard';
+
+$scripts_pie = '<script src="../assets/vendor/chart.umd.js"></script>'
+             . '<script src="../js/dashboard.js"></script>';
 
 include __DIR__ . '/../includes/header.php';
 
@@ -73,6 +94,21 @@ include __DIR__ . '/_navegacion.php';
       <p class="admin-tarjeta-etiqueta">Pedidos por revisar</p>
     </article>
   </div>
+
+  <h2>Cupos disponibles por producto</h2>
+  <?php if ($datos_grafico['valores'] === []): ?>
+    <p class="admin-vacio">No hay productos activos que graficar.</p>
+  <?php else: ?>
+    <div class="admin-grafico">
+      <canvas
+        id="grafico-cupos"
+        role="img"
+        aria-label="Cupos disponibles por producto. Las barras rojas indican cinco cupos o menos."
+      ></canvas>
+    </div>
+    <p class="ayuda">Las barras en rojo indican cinco cupos o menos.</p>
+    <script type="application/json" id="datos-cupos"><?= json_encode($datos_grafico, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
+  <?php endif; ?>
 
   <h2>Últimos pedidos</h2>
   <?php if ($ultimos === []): ?>
