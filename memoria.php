@@ -7,7 +7,7 @@ $titulo        = 'Memoria | Congreso Internacional de Ingeniería en Sistemas e 
 $descripcion   = 'Repositorio de documentos PDF de ediciones anteriores.';
 $pagina_activa = 'memoria';
 $pagina_id     = 'pagina-memoria';
-$scripts_pie   = '';
+$scripts_pie   = '<script src="js/memoria.js" defer></script>';
 
 include __DIR__ . '/includes/header.php';
 ?>
@@ -20,7 +20,7 @@ include __DIR__ . '/includes/header.php';
 
   <section class="seccion">
     <div class="contenedor">
-      <!-- FILTROS (solo diseño) -->
+      <!-- FILTROS (los aplica js/memoria.js) -->
       <form
         class="barra-filtros"
         id="filtros-memoria"
@@ -52,6 +52,8 @@ include __DIR__ . '/includes/header.php';
           Limpiar filtros
         </button>
       </form>
+
+      <p class="resumen-filtros" id="resumen-memoria" aria-live="polite"></p>
 
       <ul class="rejilla-documentos" id="lista-documentos">
         <li
