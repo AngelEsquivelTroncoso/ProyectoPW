@@ -195,16 +195,62 @@ ProyectoPW/
 │   └── capturar-orden.php    Captura y registra la venta (JSON)
 │
 ├── js/
+│   ├── validacion.js         Validación de formularios (regex)
+│   ├── inicio.js             Carrusel del hero (jQuery + Slick)
 │   ├── programa.js           Filtros de la agenda
-│   └── ponencia-detalle.js   Detalle según ?id=
+│   ├── memoria.js            Filtros de la memoria
+│   ├── ponencia-detalle.js   Detalle según ?id=
+│   └── dashboard.js          Gráfico de cupos (Chart.js)
 │
+├── assets/vendor/            jQuery 3.7.1, Slick 1.8.1, Chart.js 4.4.6
 ├── memoria/                  Documentos PDF de la memoria
 ├── lib/fpdf/                 FPDF 1.9
 ├── sql/schema.sql            Esquema + datos semilla
 └── docs/                     Planes de trabajo (no necesarios en producción)
 ```
 
-Las páginas `programa.php`, `ponencias.php`, `memoria.php` y `ponencia-detalle.php` son contenido informativo, ahora con filtros de agenda, detalle por `?id=` y PDFs reales.
+Las páginas `programa.php`, `ponencias.php`, `memoria.php` y `ponencia-detalle.php` son contenido informativo, ahora con filtros de agenda, filtros de la memoria, detalle por `?id=` y PDFs reales.
+
+---
+
+## JavaScript del lado del cliente (Unidad 3)
+
+Todo el JavaScript es nativo, salvo tres librerías servidas **localmente** desde `assets/vendor/` para que el sitio funcione sin conexión a internet.
+
+> Las librerías de front-end no viven en `lib/`: ese directorio está cerrado por `.htaccess` (`Require all denied`) y el navegador recibiría un 403.
+
+| Librería | Versión | Archivo | Para qué |
+|---|---|---|---|
+| jQuery | 3.7.1 | `assets/vendor/jquery.min.js` | Base del carrusel |
+| Slick | 1.8.1 | `assets/vendor/slick.min.js` + `slick.css` | Carrusel del hero |
+| Chart.js | 4.4.6 | `assets/vendor/chart.umd.js` | Gráfico del panel |
+
+### Validación de formularios
+
+`js/validacion.js` es un módulo declarativo: cada campo se marca en el HTML con `data-validar="<regla>"` y el módulo aplica la regla, muestra el mensaje y detiene el envío. Cubre los cinco formularios del sitio: `registro.php`, `login-cliente.php`, `admin/login.php`, `admin/productos.php` y `carrito.php`.
+
+| Campo | Regla | Validación en el servidor |
+|---|---|---|
+| `nombre` | letras, espacios, guion y punto, 3 a 100 | `registro.php:31` |
+| `correo` | expresión regular de correo, máximo 150 | `registro.php:35` |
+| `password` | mínimo 8 caracteres | `registro.php:39` |
+| `confirmar` | igual a `password` | `registro.php:43` |
+| `precio` | decimal mayor que cero, hasta dos decimales | `admin/productos.php` |
+| `stock` | entero igual o mayor que cero | `admin/productos.php` |
+| `cantidad` | entero dentro de `min`/`max` del campo | `carrito.php` |
+
+Las reglas replican la validación del servidor, que **sigue siendo la autoridad**: desactivar JavaScript no permite guardar datos inválidos. Los formularios conservan `novalidate` para que los globos nativos no compitan con los mensajes propios; los errores usan `role="alert"`, `aria-invalid` y `aria-describedby`.
+
+### Uso del DOM
+
+| # | Archivo | Qué hace | API del DOM |
+|---|---|---|---|
+| 1 | `js/programa.js` | Filtra la agenda por día, tipo y sala | `querySelectorAll`, `dataset`, `hidden`, `createElement`, `after`, `history.replaceState` |
+| 2 | `js/ponencia-detalle.js` | Rellena la ficha desde `?id=` | `getElementById`, `textContent`, `innerHTML`, `setAttribute`, `document.title` |
+| 3 | `js/memoria.js` | Filtra la memoria por edición y categoría | `querySelectorAll`, `dataset`, `hidden`, `createElement`, `after` |
+| 4 | `js/validacion.js` | Inserta y retira los mensajes de error de cada campo | `createElement`, `insertAdjacentElement`, `setAttribute`, `classList` |
+
+Los tres primeros se apoyan en atributos `data-*` que el servidor ya imprime, así que el filtrado no necesita volver a consultar la base de datos.
 
 ---
 
