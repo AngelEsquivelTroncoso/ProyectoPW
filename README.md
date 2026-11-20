@@ -7,6 +7,8 @@ Sitio web del **Congreso Internacional de Ingeniería en Sistemas e IoT** con do
 
 Construido con **PHP 8 nativo + MariaDB/MySQL + Apache**, reutilizando el diseño original (`styles.css`).
 
+**Repositorio público:** <https://github.com/AngelEsquivelTroncoso/ProyectoPW>
+
 ---
 
 ## Requisitos
