@@ -10,6 +10,8 @@ declare(strict_types=1);
  *   $pagina_activa  — clave del enlace activo (inicio, programa, ...)
  *   $pagina_id      — id del <body> (opcional)
  *   $raiz           — prefijo relativo a la raíz, por ejemplo '../'
+ *   $css_extra      — HTML de hojas de estilo adicionales (opcional)
+ *   $scripts_pie    — HTML de scripts al final del <body> (opcional)
  */
 
 require_once __DIR__ . '/auth.php';
@@ -44,6 +46,7 @@ $activo = static fn (string $clave): string => $pagina_activa === $clave
     />
 
     <link rel="stylesheet" href="<?= e($raiz) ?>styles.css" />
+    <?= $css_extra ?? '' ?>
   </head>
   <body<?= $pagina_id !== '' ? ' id="' . e($pagina_id) . '"' : '' ?>>
     <a class="saltar-contenido" href="#contenido-principal">Saltar al contenido</a>

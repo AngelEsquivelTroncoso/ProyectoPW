@@ -9,43 +9,104 @@ $descripcion   = 'Portal del Congreso Internacional de Ingeniería en Sistemas e
 $pagina_activa = 'inicio';
 $pagina_id     = 'pagina-inicio';
 
+// El hero es un carrusel con jQuery + Slick. Solo esta página carga esas
+// librerías: se sirven desde assets/ porque lib/ está cerrado a HTTP.
+$css_extra   = '<link rel="stylesheet" href="assets/vendor/slick.css" />';
+$scripts_pie = '<script src="assets/vendor/jquery.min.js"></script>'
+             . '<script src="assets/vendor/slick.min.js"></script>'
+             . '<script src="js/inicio.js"></script>';
+
 $destacados = productos_activos(3);
 
 include __DIR__ . '/includes/header.php';
 ?>
 
       <section class="hero" id="hero">
-        <div class="contenedor hero-contenido">
-          <h1>Congreso Internacional de Ingeniería en Sistemas e IoT</h1>
-          <p class="hero-descripcion">
-            Tres días para presentar investigación, compartir proyectos y
-            conectar con quienes construyen la próxima generación de sistemas
-            conectados.
-          </p>
+        <div class="hero-slider" id="hero-slider">
+          <article class="hero-slide">
+            <div class="contenedor hero-contenido">
+              <h1>Congreso Internacional de Ingeniería en Sistemas e IoT</h1>
+              <p class="hero-descripcion">
+                Tres días para presentar investigación, compartir proyectos y
+                conectar con quienes construyen la próxima generación de sistemas
+                conectados.
+              </p>
 
-          <ul class="hero-datos" id="hero-datos">
-            <li>
-              <strong>12 al 14 de noviembre de 2026</strong><span>Fechas del evento</span>
-            </li>
-            <li>
-              <strong>Centro de Convenciones Tecnológico</strong><span>Edificio A, Auditorio Magno</span>
-            </li>
-          </ul>
+              <ul class="hero-datos" id="hero-datos">
+                <li>
+                  <strong>12 al 14 de noviembre de 2026</strong><span>Fechas del evento</span>
+                </li>
+                <li>
+                  <strong>Centro de Convenciones Tecnológico</strong><span>Edificio A, Auditorio Magno</span>
+                </li>
+              </ul>
 
-          <div class="hero-acciones">
-            <a class="btn btn-principal" id="btn-registro-pago" href="catalogo.php">Registro y pago</a>
-            <div class="metodo-pago">
-              <span>Pago seguro con</span>
-              <img
-                class="logo-paypal"
-                id="logo-paypal"
-                src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
-                alt="Logotipo de PayPal"
-                width="90"
-                height="28"
-              />
+              <div class="hero-acciones">
+                <a class="btn btn-principal" id="btn-registro-pago" href="catalogo.php">Registro y pago</a>
+                <div class="metodo-pago">
+                  <span>Pago seguro con</span>
+                  <img
+                    class="logo-paypal"
+                    id="logo-paypal"
+                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+                    alt="Logotipo de PayPal"
+                    width="90"
+                    height="28"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          </article>
+
+          <article class="hero-slide">
+            <div class="contenedor hero-contenido">
+              <h2 class="hero-titulo">Seis ponencias, tres días de congreso</h2>
+              <p class="hero-descripcion">
+                Investigación en IoT, ciberseguridad, inteligencia artificial en el
+                borde, industria 4.0 e ingeniería de software, presentada por equipos
+                de universidades y laboratorios.
+              </p>
+
+              <ul class="hero-datos">
+                <li>
+                  <strong>6 ponencias</strong><span>Programa académico</span>
+                </li>
+                <li>
+                  <strong>3 ejes temáticos</strong><span>Más talleres prácticos</span>
+                </li>
+              </ul>
+
+              <div class="hero-acciones">
+                <a class="btn btn-principal" href="ponencias.php">Ver ponencias</a>
+                <a class="btn btn-contorno" href="programa.php">Consultar programa</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hero-slide">
+            <div class="contenedor hero-contenido">
+              <h2 class="hero-titulo">Inscripciones abiertas</h2>
+              <p class="hero-descripcion">
+                Elige tu modalidad de participación, paga en línea y recibe tu
+                recibo en PDF al instante. Los cupos de cada taller se actualizan
+                en tiempo real.
+              </p>
+
+              <ul class="hero-datos">
+                <li>
+                  <strong>Modalidad ponente</strong><span>Incluye memoria del congreso</span>
+                </li>
+                <li>
+                  <strong>Modalidad participante</strong><span>Conferencias y talleres</span>
+                </li>
+              </ul>
+
+              <div class="hero-acciones">
+                <a class="btn btn-principal" href="catalogo.php">Registro y pago</a>
+                <a class="btn btn-contorno" href="registro.php">Crear cuenta</a>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
