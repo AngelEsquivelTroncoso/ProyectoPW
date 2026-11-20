@@ -229,6 +229,14 @@ Todo el JavaScript es nativo, salvo tres librerías servidas **localmente** desd
 | Slick | 1.8.1 | `assets/vendor/slick.min.js` + `slick.css` | Carrusel del hero |
 | Chart.js | 4.4.6 | `assets/vendor/chart.umd.js` | Gráfico del panel |
 
+### Carrusel del hero
+
+`js/inicio.js` inicializa Slick sobre las tres diapositivas de `index.php` y convierte la lista de control que genera la librería en un índice tipográfico: cada control muestra el nombre de su diapositiva (`data-titulo`) en lugar de «1, 2, 3», y el subrayado del control activo avanza con el temporizador del avance automático.
+
+- Slick nombra sus controles en inglés (`1 of 3`): el módulo retira ese `aria-label` para que el nombre accesible sea el texto visible.
+- El avance automático se detiene con el botón de pausa, al pasar el puntero y al recibir el foco (WCAG 2.2.2), y no arranca con `prefers-reduced-motion`.
+- No hay flechas: con tres diapositivas el índice da acceso directo a cada una, y las teclas `←` y `→` hacen el recorrido secuencial con el foco acompañando al control activo.
+
 ### Validación de formularios
 
 `js/validacion.js` es un módulo declarativo: cada campo se marca en el HTML con `data-validar="<regla>"` y el módulo aplica la regla, muestra el mensaje y detiene el envío. Cubre los cinco formularios del sitio: `registro.php`, `login-cliente.php`, `admin/login.php`, `admin/productos.php` y `carrito.php`.

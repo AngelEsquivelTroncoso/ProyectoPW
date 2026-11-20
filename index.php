@@ -23,7 +23,7 @@ include __DIR__ . '/includes/header.php';
 
       <section class="hero" id="hero">
         <div class="hero-slider" id="hero-slider">
-          <article class="hero-slide">
+          <article class="hero-slide" data-titulo="El congreso">
             <div class="contenedor hero-contenido">
               <h1>Congreso Internacional de Ingeniería en Sistemas e IoT</h1>
               <p class="hero-descripcion">
@@ -58,7 +58,7 @@ include __DIR__ . '/includes/header.php';
             </div>
           </article>
 
-          <article class="hero-slide">
+          <article class="hero-slide" data-titulo="Ponencias">
             <div class="contenedor hero-contenido">
               <h2 class="hero-titulo">Seis ponencias, tres días de congreso</h2>
               <p class="hero-descripcion">
@@ -83,7 +83,7 @@ include __DIR__ . '/includes/header.php';
             </div>
           </article>
 
-          <article class="hero-slide">
+          <article class="hero-slide" data-titulo="Inscripciones">
             <div class="contenedor hero-contenido">
               <h2 class="hero-titulo">Inscripciones abiertas</h2>
               <p class="hero-descripcion">

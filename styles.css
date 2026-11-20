@@ -1982,11 +1982,12 @@ select[aria-invalid="true"]:focus {
 }
 
 /* ==========================================================================
-   20. CARRUSEL DEL HERO (jQuery + Slick)
+   20. HERO: CARRUSEL CON ÍNDICE EDITORIAL (jQuery + Slick)
    --------------------------------------------------------------------------
-   slick.css solo aporta la estructura; las flechas, los puntos y el botón de
-   pausa se dibujan aquí para que el carrusel hable el mismo idioma visual
-   del resto del sitio.
+   Slick solo aporta la estructura de diapositivas. No hay flechas ni puntos:
+   la lista de control que genera Slick se convierte en un índice tipográfico
+   con el nombre de cada diapositiva, y el subrayado del ítem activo funciona
+   además como barra de progreso del avance automático.
    ========================================================================== */
 .hero-slider {
   position: relative;
@@ -2002,107 +2003,175 @@ select[aria-invalid="true"]:focus {
   outline: none;
 }
 
-/* Flechas: cristal circular sobre los bordes del hero. */
-.hero-flecha {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  padding: 0;
-  transform: translateY(-50%);
-  border: 1px solid var(--vidrio-borde-fuerte);
-  border-radius: 50%;
-  background: var(--vidrio-fondo-fuerte);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  color: var(--color-texto);
-  font-size: var(--texto-lg);
-  line-height: 1;
-  cursor: pointer;
-  transition: var(--transicion);
-}
-.hero-flecha--anterior {
-  left: var(--espacio-2);
-}
-.hero-flecha--siguiente {
-  right: var(--espacio-2);
-}
-.hero-flecha:hover,
-.hero-flecha:focus-visible {
-  border-color: var(--color-cyan);
-  background: rgba(34, 211, 238, 0.16);
-  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.25);
-  color: #fff;
-}
-
-/* Puntos: pastilla alargada en la diapositiva activa. */
+/* --- Índice ---------------------------------------------------------------
+   Ocupa el ancho de .contenedor para que los ítems queden alineados con el
+   contenido de las diapositivas. */
 .hero-slider .slick-dots {
   display: flex;
-  justify-content: center;
-  gap: 0.6rem;
-  margin: var(--espacio-4) 0 0;
-  padding: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-4);
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: var(--espacio-4) auto 0;
+  padding: 0 var(--espacio-3);
   list-style: none;
 }
-.hero-slider .slick-dots button {
-  width: 0.7rem;
-  height: 0.7rem;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.28);
-  color: transparent;
-  font-size: 0;
-  cursor: pointer;
-  transition: var(--transicion);
-}
-.hero-slider .slick-dots button:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-.hero-slider .slick-dots li.slick-active button {
-  width: 1.9rem;
-  background: var(--color-cyan);
+
+.hero-slider .slick-dots li {
+  min-width: 0;
 }
 
-/* Botón de pausa del avance automático. */
-.hero-pausa {
-  position: absolute;
-  top: var(--espacio-2);
-  right: var(--espacio-2);
-  z-index: 2;
-  padding: 0.35rem 0.9rem;
-  border: 1px solid var(--vidrio-borde);
-  border-radius: 999px;
-  background: var(--vidrio-fondo-fuerte);
+/* Cada ítem: número, nombre y riel de progreso. */
+.hero-slider .slick-dots button {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0 0 0.7rem;
+  border: 0;
+  background: none;
   color: var(--color-texto-suave);
-  font-size: var(--texto-sm);
+  font-family: var(--fuente-titulos);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transicion);
+}
+
+.hero-slider .slick-dots button:hover,
+.hero-slider .slick-dots button:focus-visible,
+.hero-slider .slick-dots li.slick-active button {
+  color: #fff;
+}
+
+.hero-slider .slick-dots button:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.hero-slider .slick-dots li.slick-active .indice-numero {
+  color: var(--color-cyan);
+}
+
+.indice-numero {
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transicion);
+}
+
+/* Riel: carril tenue siempre visible. El relleno con el degradado de marca
+   avanza solo mientras el carrusel está en marcha. */
+.indice-riel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.indice-riel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--color-purpura), var(--color-cyan));
+}
+
+/* Sin avance automático (movimiento reducido) el ítem activo se marca con el
+   riel completo: un subrayado de marca. */
+.hero-slider .slick-dots li.slick-active .indice-riel::after {
+  transform: scaleX(1);
+}
+
+.hero-slider.hero-avanza .slick-dots li.slick-active .indice-riel::after {
+  /* Propiedades por separado: el atajo `animation` reiniciaría
+     animation-play-state y anularía la pausa del riel. */
+  animation-name: riel-hero;
+  animation-duration: 7000ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Pausa: la barra se congela donde está. Al reanudar, js/inicio.js reinicia
+   la animación junto con el temporizador de Slick. */
+.hero-slider.hero-pausado .indice-riel::after {
+  animation-play-state: paused;
+}
+
+@keyframes riel-hero {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* --- Pausa del avance automático ----------------------------------------- */
+.hero-slider .slick-dots .indice-pausa {
+  /* Pegado al índice: suelto en el borde derecho quedaba como una marca
+     perdida en el vacío del hero. */
+  margin-left: var(--espacio-1);
+}
+
+.hero-pausa {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: none;
+  color: rgba(255, 255, 255, 0.55);
   cursor: pointer;
   transition: var(--transicion);
 }
+
 .hero-pausa:hover,
 .hero-pausa:focus-visible {
-  border-color: var(--color-cyan);
+  border-color: var(--vidrio-borde-fuerte);
+  background: rgba(255, 255, 255, 0.07);
   color: #fff;
+}
+
+.hero-pausa:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-flecha,
-  .hero-pausa,
-  .hero-slider .slick-dots button {
+  .hero-slider .slick-dots button,
+  .indice-numero,
+  .hero-pausa {
     transition: none;
   }
 }
 
-/* En pantallas estrechas el botón de pausa deja de flotar: si no, se monta
-   encima del titular del hero. */
-@media (max-width: 820px) {
-  .hero-pausa {
-    position: static;
-    display: block;
-    margin: var(--espacio-2) auto 0;
+@media (max-width: 560px) {
+  .hero-slider .slick-dots {
+    gap: 0.85rem;
+    margin-top: var(--espacio-3);
+  }
+  /* Los números sobran cuando el ancho es escaso. */
+  .indice-numero {
+    display: none;
+  }
+  .hero-slider .slick-dots button {
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
   }
 }
 
